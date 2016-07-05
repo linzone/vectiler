@@ -874,6 +874,11 @@ int vectiler(Params exportParams) {
                         double height = 0.0;
                         double minHeight = 0.0;
 
+                        if (layer.name == "buildings") {
+                            height = exportParams.height * tile.invScale;
+                            minHeight = exportParams.minHeight * tile.invScale;
+                        }
+
                         if (itHeight != feature.props.numericProps.end()) {
                             height = itHeight->second * scale;
                         }

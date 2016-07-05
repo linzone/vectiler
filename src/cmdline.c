@@ -22,6 +22,8 @@ int main(int argc, const char **argv) {
     int roads = 0;
     float roadsHeight = 1.f;
     float roadsExtrusionWidth = 5.f;
+    float minHeight = 0.f;
+    float height = 0.f;
     int normals = 0;
     const char* name = NULL;
     const char* apiKey = "vector-tiles-qVaBcRA";
@@ -49,12 +51,14 @@ int main(int argc, const char **argv) {
     flag_float(&roadsHeight, "roadsHeight", "The roads height offset (z-axis)");
     flag_float(&roadsExtrusionWidth, "roadsExtrusionWidth", "The roads extrusion width");
     flag_int(&normals, "normals", "Export with normals");
+    flag_float(&minHeight, "minHeight", "A minimum height at which building should be extruded");
+    flag_float(&height, "height", "The height at which building should be extruded (if height is not available)");
     flag_parse(argc, argv, "v" "0.1.0", 0);
 
     struct Params parameters = {&name[0], &apiKey[0], tileX, tileY, tileZ, {offsetX, offsetY},
         (bool)splitMeshes, aoAtlasSize, aoSamples, (bool)aoBaking, (bool)append, (bool)terrain,
         terrainSubdivision, terrainExtrusionScale, (bool)buildings, buildingsExtrusionScale,
-        (bool)roads, roadsHeight, roadsExtrusionWidth, (bool)normals};
+        (bool)roads, roadsHeight, roadsExtrusionWidth, (bool)normals, minHeight, height};
 
     if (parameters.aoBaking && (parameters.terrain || parameters.roads)) {
         printf("Ambient occlusion baking not yet available when exporting with option --terrain or --roads\n");
